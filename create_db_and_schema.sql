@@ -18,3 +18,31 @@ CREATE SCHEMA test;
 --         CREATE SCHEMA test;
 --     END IF;
 -- END $$
+-- У таблиц не случайно 2 разных id. generated_id - синтетически сгенерированный id просто для сохранения в БД и удобной работы с записью через hibernate
+-- id - является уникальным только в рамках подсистемы, а в разных подсистемах они могут повторяться.
+-- Приходящие order_info также приходят из подсистем и ссылаются именно на order_handbook_info.id из своей подсистемы
+CREATE TABLE test.order_handbook_info
+(
+    generated_id    BIGINT PRIMARY KEY,
+    id              BIGINT,
+    subsystem_name  VARCHAR(50),
+    code            VARCHAR(254),
+    sub_code        VARCHAR(254),
+    marker          VARCHAR(254),
+    description     VARCHAR(3000),
+    order_type      VARCHAR(254),
+    due_date_policy VARCHAR(500),
+    constraint unique_order_handbook_info_id_subsystem_name unique (id, subsystem_name)
+);
+
+CREATE TABLE test.order_info
+(
+    generated_id      BIGINT PRIMARY KEY,
+    id                BIGINT,
+    problem_desc      VARCHAR(3000),
+    creation_date     TIMESTAMPTZ,
+    due_date          TIMESTAMPTZ,
+    subsystem_name    VARCHAR(50),
+    order_handbook_id BIGINT,
+    constraint unique_order_info_id_subsystem_name unique (id, subsystem_name)
+)

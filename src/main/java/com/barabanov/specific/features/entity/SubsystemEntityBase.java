@@ -1,6 +1,7 @@
 package com.barabanov.specific.features.entity;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 
+@IdClass(SubsystemEntityId.class)
 @Setter
 @Getter
 @AllArgsConstructor
@@ -18,7 +20,8 @@ import lombok.experimental.SuperBuilder;
 public abstract class SubsystemEntityBase {
 
     @Id
-    private Long generatedId;
-
     private Long id;
+
+    @Id
+    private String subsystemName;
 }

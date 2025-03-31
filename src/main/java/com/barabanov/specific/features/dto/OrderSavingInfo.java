@@ -13,7 +13,6 @@ import java.time.OffsetDateTime;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class OrderSavingInfo {
     Long id;
-    Long generatedId;
     String problemDesc;
     OffsetDateTime creationDate;
     OffsetDateTime dueDate;

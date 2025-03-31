@@ -14,8 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Entity(name = "OrderHandbookInfo")
 public class OrderHandbookInfoEntity extends SubsystemEntityBase {
 
-    private String subsystemName;
-
     private String code;
 
     private String subCode;

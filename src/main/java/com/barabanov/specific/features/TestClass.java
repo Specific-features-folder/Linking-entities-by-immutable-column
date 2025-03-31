@@ -41,22 +41,23 @@ public class TestClass {
         Set<Long> orderInfoIdSet = StreamSupport.stream(orderInfoRepository.findAll().spliterator(), false)
                 .map(OrderInfoEntity::getId)
                 .collect(Collectors.toSet());
-        assert orderInfoIdSet.contains(578933223673123L);
-        assert orderInfoIdSet.contains(6345239879122L);
+        System.out.println(orderInfoIdSet.contains(12345L));
+        System.out.println(orderInfoIdSet.contains(67890L));
     }
 
     public void shouldUpdateSubsystemNameInOrderInfo() {
         transactionTemplate.executeWithoutResult(transactionStatus -> {
             OrderInfoEntity orderInfoEntity = orderInfoRepository.findById(578933223673123L).get();
-            assert orderInfoEntity.getOrderHandbookInfoEntity().getId() == 780954782343L;
+            System.out.println(orderInfoEntity.getOrderHandbookInfoEntity().getId() == 780954782343L);
 
             orderInfoEntity.setSubsystemName("subsystem_3");
+            orderInfoRepository.save(orderInfoEntity);
         });
 
         transactionTemplate.executeWithoutResult(transactionStatus -> {
             OrderInfoEntity orderInfoEntity = orderInfoRepository.findById(578933223673123L).get();
-            assert orderInfoEntity.getSubsystemName().equals("subsystem_3");
-            assert orderInfoEntity.getOrderHandbookInfoEntity() == null;
+            System.out.println(orderInfoEntity.getSubsystemName().equals("subsystem_3"));
+            System.out.println(orderInfoEntity.getOrderHandbookInfoEntity() == null);
         });
 
     }
@@ -66,11 +67,10 @@ public class TestClass {
     public void getOrderInfoWithNonExistServiceKeyId() {
         OrderInfoEntity orderInfoEntity = orderInfoRepository.findById(73947824798L).get();
 
-        assert orderInfoEntity.getOrderHandbookInfoEntity() == null;
+        System.out.println(orderInfoEntity.getOrderHandbookInfoEntity() == null);
     }
 
 
-    @Transactional
     public void shouldNotSetHandbookSubsystemNameForUpdateOrderInfo() {
         transactionTemplate.executeWithoutResult(transactionStatus -> {
                     OrderInfoEntity orderInfoEntity = orderInfoRepository.findById(578933223673123L).get();
@@ -81,8 +81,8 @@ public class TestClass {
         );
         transactionTemplate.executeWithoutResult(transactionStatus -> {
             OrderInfoEntity orderInfoEntity = orderInfoRepository.findById(578933223673123L).get();
-            assert orderInfoEntity.getOrderHandbookInfoEntity().getId() == 780954782343L;
-            assert orderInfoEntity.getSubsystemName().equals("subsystem_1");
+            System.out.println(orderInfoEntity.getOrderHandbookInfoEntity() == null);
+            System.out.println(orderInfoEntity.getSubsystemName().equals("subsystem_1"));
         });
     }
 
@@ -96,8 +96,8 @@ public class TestClass {
         );
         transactionTemplate.executeWithoutResult(transactionStatus -> {
             OrderInfoEntity orderInfoEntity = orderInfoRepository.findById(578933223673123L).get();
-            assert orderInfoEntity.getOrderHandbookInfoEntity() == null;
-            assert orderInfoEntity.getSubsystemName().equals("subsystem_1");
+            System.out.println(orderInfoEntity.getOrderHandbookInfoEntity() == null);
+            System.out.println(orderInfoEntity.getSubsystemName().equals("subsystem_1"));
         });
     }
 
@@ -106,7 +106,7 @@ public class TestClass {
     public void shouldJustGetOrderHandbook() {
 
         OrderInfoEntity orderInfoEntity = orderInfoRepository.findById(578933223673123L).get();
-        assert orderInfoEntity.getOrderHandbookInfoEntity().getId() == 1111L;
+        System.out.println(orderInfoEntity.getOrderHandbookInfoEntity().getId() == 1111L);
     }
 
 

@@ -13,7 +13,7 @@ public class Application {
 
         testClass.clearDb();
         testClass.fillDb();
-        testClass.shouldGetOrderInfoListWithNonExistsServiceKeyIdToo();
+        testClass.shouldJustGetOrderHandbook();
     }
 
 }
